@@ -48,12 +48,14 @@ def get_component(component):
 def get_event(e):
     unmailto = lambda x: x.replace('MAILTO:', '')
     def get_header(e):
-        keys = ['Subject', 'Organizer', 'Start', 'End', 'Location']
+        keys = ['Subject', 'Organizer', 'Start', 'End']
         vals = [unicode(e['SUMMARY']),
                 unmailto(unicode(e['ORGANIZER'])),
                 e['DTSTART'].dt.strftime(datefmt),
-                e['DTEND'].dt.strftime(datefmt),
-                unicode(e['LOCATION'])]
+                e['DTEND'].dt.strftime(datefmt)]
+        if 'LOCATION' in e.keys():
+            keys.append('Location')
+            vals.append(unicode(e['LOCATION']))
         res = []
         w = max(map(len, keys))
         for k, v in zip(keys, vals):
