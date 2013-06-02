@@ -51,8 +51,8 @@ def get_event(e):
         keys = ['Subject', 'Organizer', 'Start', 'End']
         vals = [unicode(e['SUMMARY']),
                 unmailto(unicode(e['ORGANIZER'])),
-                e['DTSTART'].dt.strftime(datefmt),
-                e['DTEND'].dt.strftime(datefmt)]
+                e['DTSTART'].dt.strftime(datefmt) + ' (' + e['DTSTART'].params['TZID'] + ')',
+                e['DTEND'].dt.strftime(datefmt) + ' (' + e['DTEND'].params['TZID'] + ')']
         if 'LOCATION' in e.keys():
             keys.append('Location')
             vals.append(unicode(e['LOCATION']))
