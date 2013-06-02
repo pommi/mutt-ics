@@ -65,6 +65,8 @@ def get_event(e):
 
     def get_participants(e):
         participants = e['ATTENDEE']
+        if type(participants) != list:
+            participants = participants,
         if len(participants):
             people = map(compose(partial(add, ' ' * 4), unmailto, unicode),
                          participants)
